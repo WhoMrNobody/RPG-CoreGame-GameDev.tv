@@ -9,37 +9,60 @@ namespace RPG.Combat{
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
-        Transform target;
-        
+        [SerializeField] float timeBetweenAttack = 1f;
+        [SerializeField] float weaponDamage = 5f;
+        Transform _target;
+        float _timeSinceLastAttack = 0f;
         void Update()
-        {
-            if(target == null) return;
+        {   
+            _timeSinceLastAttack += Time.deltaTime;
+
+            if(_target == null) return;
 
             if (!GetIsInRange())
             {
 
-                GetComponent<Mover>().MoveTo(target.position);
+                GetComponent<Mover>().MoveTo(_target.position);
 
             }
             else
             {
                 GetComponent<Mover>().Cancel();
+                AttachBehaviour();
             }
+        }
+
+        private void AttachBehaviour()
+        {   
+            if(_timeSinceLastAttack > timeBetweenAttack){
+
+                GetComponent<Animator>().SetTrigger("attack");
+                _timeSinceLastAttack = 0f;
+               
+            }
+            
         }
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.position) < weaponRange;
+            return Vector3.Distance(transform.position, _target.position) < weaponRange;
         }
 
         public void Attack(CombatTarget combatTarget){
             
             GetComponent<ActionSchedular>().StartAction(this);
-            target = combatTarget.transform;
+            _target = combatTarget.transform;
         }
 
         public void Cancel(){
-            target = null;
+            _target = null;
+        }
+
+        // Animation Event
+        void Hit(){
+
+            Health healthComponent = _target.GetComponent<Health>();
+            healthComponent.TakeDamage(weaponDamage);
         }
     }
 }
