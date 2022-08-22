@@ -36,13 +36,19 @@ namespace RPG.Combat{
         private void AttachBehaviour()
         {   
             transform.LookAt(_target.transform);
-            if(_timeSinceLastAttack > timeBetweenAttack){
-
-                GetComponent<Animator>().SetTrigger("attack");
+            if(_timeSinceLastAttack > timeBetweenAttack)
+            {
+                TriggerAttack();
                 _timeSinceLastAttack = 0f;
-               
+
             }
-            
+
+        }
+
+        private void TriggerAttack()
+        {
+            GetComponent<Animator>().ResetTrigger("stopAttack");
+            GetComponent<Animator>().SetTrigger("attack");
         }
 
         private bool GetIsInRange()
@@ -56,14 +62,30 @@ namespace RPG.Combat{
             _target = combatTarget.GetComponent<Health>();
         }
 
-        public void Cancel(){
-            GetComponent<Animator>().SetTrigger("stopAttack");
+        public bool CanAttack(CombatTarget combatTarget){
+            
+            if(combatTarget == null) { return false; }
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return targetToTest != null && !targetToTest.IsDead();
+
+        }
+
+        public void Cancel()
+        {
+            StopAttack();
             _target = null;
+        }
+
+        private void StopAttack()
+        {
+            GetComponent<Animator>().ResetTrigger("attack");
+            GetComponent<Animator>().SetTrigger("stopAttack");
         }
 
         // Animation Event
         void Hit(){
-
+            
+            if(_target == null) { return; }
             _target.TakeDamage(weaponDamage);
         }
     }
