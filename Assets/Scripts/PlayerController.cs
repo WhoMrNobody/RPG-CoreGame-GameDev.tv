@@ -34,9 +34,7 @@ public class PlayerController : MonoBehaviour
                     continue;
                 }
 
-                if(target == null) continue;
-
-                if(Input.GetMouseButtonDown(0)){
+                if(Input.GetMouseButton(0)){
                     GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
@@ -52,7 +50,7 @@ public class PlayerController : MonoBehaviour
             if (hasHit)
             {
                 if(Input.GetMouseButton(0)){
-                    GetComponent<Mover>().StartMoveAction(hit.point);
+                    GetComponent<Mover>().StartMoveAction(hit.point, 1f);
                 }
                 return true;
             }
