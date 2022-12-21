@@ -646,6 +646,7 @@ GameObject:
   - component: {fileID: 1053763947}
   - component: {fileID: 1053763950}
   - component: {fileID: 1053763948}
+  - component: {fileID: 3611787749654405946}
   m_Layer: 0
   m_Name: Character_Knights_Soldier_01
   m_TagString: Untagged
@@ -729,9 +730,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a3ae20611a6634bb2b759cbf70197c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 2
   timeBetweenAttack: 1
-  weaponDamage: 5
+  rightHandTransform: {fileID: 423694}
+  leftHandTransform: {fileID: 481036}
+  defaultWeapon: {fileID: 11400000, guid: db0ec4439cd3b3b448b62bc4feafc82c, type: 2}
 --- !u!114 &1053763945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,6 +759,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseToDistance: 5
+  suspicionTime: 5
+  patrolPath: {fileID: 0}
+  waypointTolerance: 1
+  waypointDwellTime: 3
+  patrolSpeedFraction: 0.2
 --- !u!114 &1053763950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,6 +798,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3611787749654405946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
 --- !u!1 &133736
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,8 +15,10 @@ namespace RPG.Core{
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float waypointTolerance = 1f;
         [SerializeField] float waypointDwellTime = 3f;
+
         [Range(0,1)]
         [SerializeField] float patrolSpeedFraction = 0.2f;
+
         Fighter fighter;
         Mover mover;
         GameObject player;
@@ -26,6 +28,7 @@ namespace RPG.Core{
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         int currentWaypointIndex = 0;
         private void Start() {
+
             fighter = GetComponent<Fighter>();
             mover = GetComponent<Mover>();
             health = GetComponent<Health>();
